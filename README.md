@@ -33,7 +33,7 @@ composer require pouu69/kakao-api
 
 ```` php
 'providers' => [
-    pouu69\KakaoApi\KakaoApiServiceProvider::class,
+    pouu69\KakaoApi\KakaoServiceProvider::class,
 ]
 ````
 
@@ -42,7 +42,7 @@ Facade 등록을 통해 alias를 등록 하는 경우 다음과 같이 추가 �
 
 ```` php
 'aliases' => [
-    'Kakao' => pouu69\KakaoApi\KakaoApiFacade::class,
+    'Kakao' => pouu69\KakaoApi\Facade\KakaoFacade::class,
 ];
 ````
 
