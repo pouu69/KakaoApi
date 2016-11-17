@@ -23,8 +23,30 @@ Trait KakaoStoryTrait{
 		return $this->get($this->API_TYPE, $requestAPI, $options);
 	}	
 
-	public function postNote(){
+	/**
+	 * 글 포스팅
+	 * @param  string $content     내용
+	 * @param  string $accessToken 사용자 엑새스 토큰
+	 * @return array 	             response
+	 */
+	public function postNote($content, $accessToken){
+		$requestAPI = $this->API_VERSION.'/api/story/post/note';
 
+		$header = [
+			'Content-Type' 	=> "application/x-www-form-urlencoded;charset=utf-8",
+      'Authorization' => "Bearer {$accessToken}"
+		];
+
+		$data = [
+			'content' => $content
+		];
+
+		$options = [
+			'headers' 		=> $header,
+			'form_params' => $data
+		];
+
+		return $this->post($this->API_TYPE, $requestAPI, $options);
 	}
 
 	/**
