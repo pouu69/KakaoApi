@@ -1,0 +1,24 @@
+{
+    "name": "pouu69/kakao-api",
+    "description": "kakao api for laravel 5",
+    "require": {
+        "guzzlehttp/guzzle": "^6.0",
+        "php": ">=5.5.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "KwanUng",
+            "email": "pouu69@gmail.com"
+        }
+    ],   
+    "autoload": {
+        "psr-4": {
+            "pouu69\\KakaoApi\\": "src"
+        }
+    },
+    "branch-alias": {
+        "dev-master": "1.x-dev"
+    }
+
+}
