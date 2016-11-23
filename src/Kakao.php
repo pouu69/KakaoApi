@@ -53,7 +53,7 @@ class Kakao extends KakaoRequest{
 			$response = $client->request($method, $requestAPI, $options);
 			return $this->makeResponse($response);
 		}catch (RequestException $e) {
-			throw new Exception($this->makeErrorResponse($e));
+			return $this->makeErrorResponse($e);
 		}
 	}
 
@@ -83,10 +83,10 @@ class Kakao extends KakaoRequest{
 			$errorCode = $errorResponse->getStatusCode();
 			$errorBody = json_decode($errorResponse->getBody(), true, 512, JSON_BIGINT_AS_STRING);
 
-			return json_encode([
+			return [
 				'code' => $errorCode,
 				'body' => $errorBody
-			]);
+			];
 	}
 
 	/**

@@ -145,23 +145,19 @@ $result = Kakao::postLogout($accessToken);
 
 ```` php
 if(session()->has('kakao_access_token') && session()->has('kakao_refresh_token')){
-  try{
-    $kakaoAccessToken = session()->get('kakao_access_token');
-
-    // 요걸로 token 유효성 검사 합니다.
-    $accessTokenInfo = Kakao::getInfoAccessToken($kakaoAccessToken);
-
-    if($accessTokenInfo['code'] !== 200){
-    		// 사용자 토큰 만료됬으므로, 다시 재발급 하는 곳입니다.
-        $tokens = Kakao::postRefreshToken(session()->get('kakao_refresh_token'));
-
-        Session::put('kakao_access_token', $tokens['contents']->access_token);
-        Session::put('kakao_refresh_token',$tokens['contents']->refresh_token);
+  $kakaoAccessToken = session()->get('kakao_access_token');
+  $accessTokenInfo = Kakao::getInfoAccessToken($kakaoAccessToken);
+  if($accessTokenInfo['code'] !== 200){
+      $tokens = Kakao::postRefreshToken($kakaoAccessToken);
+      if($token['code']!== 200){
+        // error handling
+      }else{
+          Session::put('kakao_access_token', $tokens['contents']->access_token);
+          if(isset($tokens['contents']->refresh_token)){
+              Session::put('kakao_refresh_token',$tokens['contents']->refresh_token);
+          }
+      }
     }
-  }catch(Exception $e){
-  	// 다음과 같이 에러를 받습니다.
-    $error = json_decode($e->getMessage());
-  }
 }
 ````
 
@@ -172,9 +168,11 @@ if(session()->has('kakao_access_token') && session()->has('kakao_refresh_token')
   	try{
   		// 카카오스토리 사용자 인지 확인합니다.
   		$result = Kakao::isStoryUser(session()->get('kakao_access_token'));
-  		return $result;
+  		$this->response($result)['contents'];
+      return $result;
   	}catch(Exception $e){
-  		$error = json_decode($e->getMessage());
+      $error = json_decode($e->getMessage());
+      // error handling
   	}
 ````
 
@@ -201,9 +199,9 @@ foreach($images as $imagePath){
 try{
 	// 위에서 작업한 이미지를 넘기며, 이미지를  카카오에 업로드합니다.
 	$result = Kakao::postImageUpload($imageUrl, session()->get('kakao_access_token'));
-	$imageUrlInfos = $result['contents']; // 여기에 실제 업로드 할때 필요한 정보가 담겨있습니다.
+  return $this->response($result)['contents'];// 여기에 실제 업로드 할때 필요한 정보가 담겨있습니다. 또는 throw exception 됌
 }catch(Exception $e){
-	throw new Exception(json_decode($e->getMessage()));
+  throw new Exception($e->getMessage());
 }	
 ````
 
@@ -223,7 +221,7 @@ try{
 	$result = Kakao::postPhoto($data, session()->get('kakao_access_token'));
 	return $this->response($result);
 }catch(Exception $e){
-	throw new Exception(json_decode($e->getMessage()));
+      throw new Exception($e->getMessage());
 }
 ````
 
