@@ -33,7 +33,7 @@ composer require pouu69/kakao-api
 
 ```` php
 'providers' => [
-    pouu69\KakaoApi\KakaoApiServiceProvider::class,
+    pouu69\KakaoApi\KakaoServiceProvider::class,
 ]
 ````
 
@@ -42,7 +42,7 @@ Facade 등록을 통해 alias를 등록 하는 경우 다음과 같이 추가 �
 
 ```` php
 'aliases' => [
-    'Kakao' => pouu69\KakaoApi\KakaoApiFacade::class,
+    'Kakao' => pouu69\KakaoApi\Facade\KakaoFacade::class,
 ];
 ````
 
@@ -79,6 +79,7 @@ return [
  - 사용자 정보 요청
 - 카카오 스토리 API
  - 사용자 확인
+ - 글 포스팅(only 글)
  - 사진(photo) 포스팅
   - 사진 업로드
   - 퍼블리싱(포스팅)
@@ -174,6 +175,17 @@ if(session()->has('kakao_access_token') && session()->has('kakao_refresh_token')
       $error = json_decode($e->getMessage());
       // error handling
   	}
+````
+##카카오 스토리 API - 글 포스팅(only 글)
+- 오로지 글만 포스팅 합니다.
+
+```` php
+try{
+  $content = '이것이 내용입니다.';
+  $result = Kakao::postNote($content, session()->get('kakao_access_token'));
+}catch(\Exception $e){
+  var_dump($e->getMessage());
+}
 ````
 
 ##카카오 스토리 API - 사진 포스팅
