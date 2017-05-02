@@ -4,14 +4,14 @@
 - Kakao API for Laravel 5
 - 카카오 사용자 정보, 카카오 스토리 포스팅 몇개만 api를 지원합니다.
 
-#require
+# require
 
 ```` php
 "guzzlehttp/guzzle": "^6.0",
 "php": ">=5.5.0"
 ````
 
-#Installation
+# Installation
 프로젝트에 있는 composer.json에 다음을 추가 하시거나,
 
 ```` php
@@ -28,7 +28,7 @@ composer 를 이용하여 설치 할 수 있습니다.
 composer require pouu69/kakao-api
 ````
 
-#ServiceProvider
+# ServiceProvider
 `config/app.php`에 아래 와 같이 providers에 등록을 합니다.
 
 ```` php
@@ -37,7 +37,7 @@ composer require pouu69/kakao-api
 ]
 ````
 
-#Facade
+# Facade
 Facade 등록을 통해 alias를 등록 하는 경우 다음과 같이 추가 하시면 됩니다.
 
 ```` php
@@ -46,7 +46,7 @@ Facade 등록을 통해 alias를 등록 하는 경우 다음과 같이 추가 �
 ];
 ````
 
-#config
+# config
 `config` 폴더에 config 파일을 생성해야합니다.
 
 다음과 같은 내용을 가진 `kakao.php` 파일을 생성합니다.
@@ -132,14 +132,14 @@ if(!empty($result['contents']->access_token)){
 }
 ````
 
-##로그아웃
+## 로그아웃
 - 세션을 현재 해당 기기만 해제 해줍니다.
 
 ```` php
 $result = Kakao::postLogout($accessToken);
 ````
 
-##사용자 토큰 유효성 검사 및 정보 얻기 / 사용자 토큰 갱신
+## 사용자 토큰 유효성 검사 및 정보 얻기 / 사용자 토큰 갱신
 - access_token 유효성 검사 (12~24시간이 대부분 만료시간이기 때문에)
 - refresh_token 이 있어야 합니다.
 - 그리고 토큰을 갱신합니다.
@@ -162,7 +162,7 @@ if(session()->has('kakao_access_token') && session()->has('kakao_refresh_token')
 }
 ````
 
-##카카오 스토리 API - 사용자 확인
+## 카카오 스토리 API - 사용자 확인
 - 카카오 스토리 사용자 인지 확인
 
 ```` php
@@ -176,7 +176,7 @@ if(session()->has('kakao_access_token') && session()->has('kakao_refresh_token')
       // error handling
   	}
 ````
-##카카오 스토리 API - 글 포스팅(only 글)
+## 카카오 스토리 API - 글 포스팅(only 글)
 - 오로지 글만 포스팅 합니다.
 
 ```` php
@@ -188,7 +188,7 @@ try{
 }
 ````
 
-##카카오 스토리 API - 사진 포스팅
+## 카카오 스토리 API - 사진 포스팅
 ### 사진 업로드
 > 항상 사진을 업로드 한 이후에 포스팅 해야합니다.
 
@@ -217,7 +217,7 @@ try{
 }	
 ````
 
-###퍼블리싱(포스팅)
+### 퍼블리싱(포스팅)
 - 위 사진 업로드 작업 이어서 진행
 
 ```` php
@@ -237,5 +237,5 @@ try{
 }
 ````
 
-#License
+# License
 The MIT License (MIT).
