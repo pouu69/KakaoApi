@@ -1,3 +1,5 @@
+## deprecated project
+
 # KakaoApi
 > 라라벨에서 사용할 라라벨용 Kakao API 가 없길래 간단하게 몇몇 API 만 만들어 봤습니다.
 
